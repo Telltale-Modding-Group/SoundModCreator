@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundModCreator", "SoundModCreator\SoundModCreator.csproj", "{EFE486C1-96E0-44E0-958E-3D75FCA98FD1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EFE486C1-96E0-44E0-958E-3D75FCA98FD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFE486C1-96E0-44E0-958E-3D75FCA98FD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFE486C1-96E0-44E0-958E-3D75FCA98FD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFE486C1-96E0-44E0-958E-3D75FCA98FD1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E801F899-1F7C-4A51-919A-5FD193FE0ED2}
+	EndGlobalSection
+EndGlobal
