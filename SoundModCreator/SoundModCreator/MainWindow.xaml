@@ -140,7 +140,7 @@
                         <Button Name="ui_audioplayer_play_button" HorizontalAlignment="Left" Margin="10,41,0,10" VerticalAlignment="Center" Width="38" Height="38" Padding="0" Visibility="Visible" Click="ui_audioplayer_play_button_Click">
                             <iconPacks:BootstrapIcons Kind="PlayFill" />
                         </Button>
-                        <Button Name="ui_audioplayer_pause_button" HorizontalAlignment="Center" Margin="113,41,221,10" VerticalAlignment="Center" Width="38" Height="38" Padding="0" Visibility="Hidden" Click="ui_audioplayer_pause_button_Click">
+                        <Button Name="ui_audioplayer_pause_button" HorizontalAlignment="Left" Margin="10,41,0,10" VerticalAlignment="Center" Width="38" Height="38" Padding="0" Visibility="Hidden" Click="ui_audioplayer_pause_button_Click">
                             <iconPacks:BootstrapIcons Kind="PauseFill" />
                         </Button>
                         <Button Name="ui_audioplayer_stop_button" HorizontalAlignment="Left" Margin="53,41,0,10" VerticalAlignment="Center" Width="38" Height="38" Padding="0" Click="ui_audioplayer_stop_button_Click">
@@ -151,6 +151,8 @@
                         </Button>
                         <Label Name="ui_audioplayer_currentTime_label" Content="0:00" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                         <Label Name="ui_audioplayer_fullTime_label" Content="0:00" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top"/>
+                        <Label Name="ui_audioplayer_volume_label" Content="100%" HorizontalAlignment="Right" Margin="0,0,3,10" VerticalAlignment="Bottom" Height="38" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="39"/>
+                        <Slider Name="ui_audioplayer_volume_slider" Margin="139,0,53,10" VerticalAlignment="Bottom" Height="38" ValueChanged="ui_audioplayer_volume_slider_ValueChanged"/>
                     </Grid>
                 </Border>
             </Grid>

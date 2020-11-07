@@ -69,6 +69,9 @@ namespace SoundModCreator
 
         public void PlayAudio(string audioPath)
         {
+            if (audioPlayer.IsPlaying)
+                audioPlayer.Stop();
+
             audioPlayer.Play();
             timer.Start();
         }
@@ -99,6 +102,27 @@ namespace SoundModCreator
                 time = (int)audioPlayer.Duration;
             }
             catch(OverflowException e)
+            {
+
+            }
+
+            return time;
+        }
+        
+        public void SetVolume(double value)
+        {
+            audioPlayer.Volume = value;
+        }
+
+        public double GetVolume()
+        {
+            double time = 0;
+
+            try
+            {
+                time = audioPlayer.Volume;
+            }
+            catch (OverflowException e)
             {
 
             }

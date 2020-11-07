@@ -84,6 +84,11 @@ namespace SoundModCreator
 
             ui_audioplayer_seekbar_slider.Maximum = audioPlayer.GetTime_FullLength();
             ui_audioplayer_seekbar_slider.Value = audioPlayer.GetTime_CurrentTime();
+
+            int volumePercent = (int)(audioPlayer.GetVolume() * 100);
+            string volumePercent_string = string.Format("{0}%", volumePercent);
+            ui_audioplayer_volume_label.Content = volumePercent_string;
+            ui_audioplayer_volume_slider.Maximum = 1;
         }
 
         public List<Item> GetFilePathsItems(string path)
@@ -162,6 +167,12 @@ namespace SoundModCreator
             audioPlayer.SeekAudio(ui_audioplayer_seekbar_slider.Value);
 
             UpdateUI_AudioPlayer();
+        }
+
+        private void ui_audioplayer_volume_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            double value = ui_audioplayer_volume_slider.Value;
+            audioPlayer.SetVolume(value);
         }
     }
 }
