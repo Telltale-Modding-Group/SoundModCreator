@@ -1,0 +1,25 @@
+﻿<mah:MetroWindow x:Class="SoundModCreator.ProjectSettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SoundModCreator"
+        mc:Ignorable="d"
+        GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+        ResizeMode="CanResizeWithGrip"
+        Title="ProjectSettings" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+
+    <mah:MetroWindow.LeftWindowCommands>
+        <mah:WindowCommands HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            <iconPacks:PackIconFontAwesome Width="30" Height="20" Kind="FolderPlusSolid" />
+        </mah:WindowCommands>
+    </mah:MetroWindow.LeftWindowCommands>
+
+    <Grid>
+        <Label Content="Working Directory" Margin="10,10,10,0" VerticalAlignment="Top"/>
+        <TextBox IsReadOnly="True" Height="23" Margin="10,41,10,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="772"/>
+
+    </Grid>
+</mah:MetroWindow>

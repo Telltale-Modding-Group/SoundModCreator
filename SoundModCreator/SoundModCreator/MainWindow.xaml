@@ -31,67 +31,67 @@
     <Grid>
         <DockPanel VerticalAlignment="Top">
             <Menu DockPanel.Dock="Top" Margin="0" HorizontalContentAlignment="Stretch">
-                <MenuItem Header="File" Margin="5,0,0,0">
-                    <MenuItem Header="New Project" Margin="7,0,0,0">
+                <MenuItem Name="ui_menu_file_menu" Header="File" Margin="5,0,0,0">
+                    <MenuItem Name="ui_menu_file_newProject_menuItem" Header="New Project" Margin="7,0,0,0" Click="ui_menu_file_newProject_menuItem_Click">
                         <MenuItem.Icon>
                             <iconPacks:BootstrapIcons Kind="FolderPlus" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Open Project" Margin="7,0,0,0">
+                    <MenuItem Name="ui_menu_file_openProject_menuItem" Header="Open Project" Margin="7,0,0,0" Click="ui_menu_file_openProject_menuItem_Click">
                         <MenuItem.Icon>
                             <iconPacks:BootstrapIcons Kind="Folder2Open" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
-                    <MenuItem Header="Save" Margin="7,0,0,0">
+                    <MenuItem Name="ui_menu_file_save_menuItem" Header="Save" Margin="7,0,0,0" Click="ui_menu_file_save_menuItem_Click">
                         <MenuItem.Icon>
                             <iconPacks:Codicons Kind="Save" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Save As" Margin="7,0,0,0">
+                    <MenuItem Name="ui_menu_file_saveAs_menuItem" Header="Save As" Margin="7,0,0,0" Click="ui_menu_file_saveAs_menuItem_Click">
                         <MenuItem.Icon>
                             <iconPacks:Codicons Kind="SaveAs" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="Edit">
-                    <MenuItem Header="Undo" Margin="7,0,0,0">
+                <MenuItem Name="ui_menu_edt_undo_menu" Header="Edit">
+                    <MenuItem Name="ui_menu_edit_undo_menuItem" Header="Undo" Margin="7,0,0,0" Click="ui_menu_edit_undo_menuItem_Click">
                         <MenuItem.Icon>
                             <iconPacks:BoxIcons Kind="RegularUndo" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Redo" Margin="7,0,0,0">
+                    <MenuItem Name="ui_menu_edit_redo_menuItem" Header="Redo" Margin="7,0,0,0" Click="ui_menu_edit_redo_menuItem_Click">
                         <MenuItem.Icon>
                             <iconPacks:BoxIcons Kind="RegularRedo" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="Build">
-                    <MenuItem Header="Build Mod" Margin="7,0,0,0">
+                <MenuItem Name="ui_menu_build_menu" Header="Build">
+                    <MenuItem Name="ui_menu_build_buildMod_menuItem" Header="Build Mod" Margin="7,0,0,0" Click="ui_menu_build_buildMod_menuItem_Click">
                         <MenuItem.Icon>
                             <iconPacks:BootstrapIcons Kind="Tools" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Configure Mod" Margin="7,0,0,0">
+                    <MenuItem Name="ui_menu_build_configureMod_menuItem" Header="Configure Mod" Margin="7,0,0,0" Click="ui_menu_build_configureMod_menuItem_Click">
                         <MenuItem.Icon>
                             <iconPacks:BootstrapIcons Kind="GearWide" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="Options">
-                    <MenuItem Header="Application Settings" Margin="7,0,0,0">
+                <MenuItem Name="ui_menu_options_menu" Header="Options">
+                    <MenuItem Name="ui_menu_options_applicationSettings_menuItemm" Header="Application Settings" Margin="7,0,0,0" Click="ui_menu_options_applicationSettings_menuItemm_Click">
                         <MenuItem.Icon>
                             <iconPacks:BootstrapIcons Kind="GearFill" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="Help">
-                    <MenuItem Header="About" Margin="7,0,0,0">
+                <MenuItem Name="ui_menu_help_menu" Header="Help">
+                    <MenuItem Name="ui_menu_help_about_menuItem" Header="About" Margin="7,0,0,0" Click="ui_menu_help_about_menuItem_Click">
                         <MenuItem.Icon>
                             <iconPacks:BootstrapIcons Kind="Info" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Documentation" Margin="7,0,0,0">
+                    <MenuItem Name="ui_menu_help_documentation_menuItem" Header="Documentation" Margin="7,0,0,0" Click="ui_menu_help_documentation_menuItem_Click">
                         <MenuItem.Icon>
                             <iconPacks:BootstrapIcons Kind="Files" />
                         </MenuItem.Icon>
@@ -152,7 +152,7 @@
                         <Label Name="ui_audioplayer_currentTime_label" Content="0:00" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                         <Label Name="ui_audioplayer_fullTime_label" Content="0:00" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top"/>
                         <Label Name="ui_audioplayer_volume_label" Content="100%" HorizontalAlignment="Right" Margin="0,0,3,10" VerticalAlignment="Bottom" Height="38" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="39"/>
-                        <Slider Name="ui_audioplayer_volume_slider" Margin="139,0,53,10" VerticalAlignment="Bottom" Height="38" ValueChanged="ui_audioplayer_volume_slider_ValueChanged"/>
+                        <Slider Name="ui_audioplayer_volume_slider" Margin="139,0,53,10" VerticalAlignment="Bottom" Height="38" ValueChanged="ui_audioplayer_volume_slider_ValueChanged" Maximum="1" Value="1"/>
                     </Grid>
                 </Border>
             </Grid>

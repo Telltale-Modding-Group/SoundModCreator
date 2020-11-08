@@ -114,22 +114,6 @@ namespace SoundModCreator
             audioPlayer.Volume = value;
         }
 
-        public double GetVolume()
-        {
-            double time = 0;
-
-            try
-            {
-                time = audioPlayer.Volume;
-            }
-            catch (OverflowException e)
-            {
-
-            }
-
-            return time;
-        }
-
         public double GetTime_CurrentTime()
         {
             double time = 0;
