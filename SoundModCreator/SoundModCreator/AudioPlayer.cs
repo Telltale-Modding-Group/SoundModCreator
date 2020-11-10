@@ -58,7 +58,9 @@ namespace SoundModCreator
 
         public void LoadAudio(string path)
         {
-            if(IsAudioFile(path) && !string.IsNullOrEmpty(path))
+            audioPlayer.Dispose();
+
+            if (IsAudioFile(path) && !string.IsNullOrEmpty(path))
             {
                 using (Stream stream = File.Open(path, FileMode.Open))
                 {

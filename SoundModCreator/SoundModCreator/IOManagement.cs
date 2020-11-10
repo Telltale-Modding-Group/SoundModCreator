@@ -15,7 +15,7 @@ namespace SoundModCreator
     /// <para>It also contains other additional custom System.IO functions</para>
     /// <para>We recomend you use this class's functions in-place of the traditional System.IO functions</para>
     /// </summary>
-    class IOManagement
+    public class IOManagement
     {
 
         /// <summary>
@@ -175,6 +175,8 @@ namespace SoundModCreator
         /// <param name="giveWarning"></param>
         public void CreateDirectory(string newDirectoryPath, bool giveWarning = false)
         {
+            DirectoryInfo directoryInfo;
+
             //check if the directory exists as a safety measure, if not then stop
             if (string.IsNullOrEmpty(newDirectoryPath) || string.IsNullOrWhiteSpace(newDirectoryPath))
             {
@@ -206,7 +208,7 @@ namespace SoundModCreator
             try
             {
                 //delete the file
-                Directory.CreateDirectory(newDirectoryPath);
+                directoryInfo = Directory.CreateDirectory(newDirectoryPath);
             }
             catch (Exception e)
             {
@@ -588,6 +590,31 @@ namespace SoundModCreator
                 if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(openFileDialog.FileName))
                 {
                     newFilePath = openFileDialog.FileName;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Opens a FileBrowserDialog for the user to select a file path.
+        /// </summary>
+        /// <param name="newFilePath"></param>
+        /// <param name="dialogTitle"></param>
+        public void SaveFilePath(ref string saveFilePath, string extension, string dialogTitle = "Select a File Path")
+        {
+            //open a file dialog
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                //set our file dialog options here
+                saveFileDialog.Title = dialogTitle;
+                saveFileDialog.Filter = extension;
+
+                //open the dialog and cache the result
+                DialogResult result = saveFileDialog.ShowDialog();
+
+                //if the user selects a file, return that string.
+                if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(saveFileDialog.FileName))
+                {
+                    saveFilePath = saveFileDialog.FileName;
                 }
             }
         }

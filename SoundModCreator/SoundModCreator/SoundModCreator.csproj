@@ -176,6 +176,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppSettings.cs" />
+    <Compile Include="AppSettingsFile.cs" />
+    <Compile Include="Help.cs" />
+    <Compile Include="ProjectManager.cs" />
     <Compile Include="ProjectSettings.xaml.cs">
       <DependentUpon>ProjectSettings.xaml</DependentUpon>
     </Compile>

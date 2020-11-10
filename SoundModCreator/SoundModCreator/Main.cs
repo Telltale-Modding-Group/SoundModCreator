@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.IO.Compression;
 using System.Windows;
 using SoundModCreator.FileTree;
 using Newtonsoft;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 using Newtonsoft.Json.Serialization;
 
 namespace SoundModCreator
@@ -18,15 +20,23 @@ namespace SoundModCreator
         public Item selectedItem;
         public AudioPlayer audioPlayer;
 
-        private MainWindow mainWindow;
-        private ProjectFile projectFile;
+        private Help help;
         private IOManagement ioManagement;
+        private AppSettings appSettings;
+        private ProjectManager projectManager;
 
-        public Main(MainWindow mainWindow)
+        private MainWindow mainWindow;
+        private ProjectSettings projectSettings;
+
+        public Main(MainWindow mainWindow, ProjectSettings projectSettings, IOManagement ioManagement, AppSettings appSettings, Help help, ProjectManager projectManager)
         {
             this.mainWindow = mainWindow;
-            projectFile = new ProjectFile();
-            ioManagement = new IOManagement();
+            this.ioManagement = ioManagement;
+            this.projectSettings = projectSettings;
+            this.appSettings = appSettings;
+            this.help = help;
+            this.projectManager = projectManager;
+
             audioPlayer = new AudioPlayer(mainWindow);
         }
 
@@ -37,188 +47,63 @@ namespace SoundModCreator
             audioPlayer.LoadAudio(selectedItem.Path);
         }
 
+        public void ProjectView_UpdateFileTree(List<Item> fileTree)
+        {
+            mainWindow.DataContext = fileTree;
+        }
+
+        /// <summary>
+        /// Updates the changes to the project file object, if the project file does not exist then it calls Project_SaveProjectAs() for a prompt.
+        /// </summary>
         public void Project_SaveProject()
         {
-            if (File.Exists(projectFile.Project_FilePath))
-            {
-                Project_SaveProjectAs();
-                return;
-            }
-
-            UpdateProjectFileWithChanges();
+            projectManager.Project_SaveProject();
         }
 
+        /// <summary>
+        /// Prompts the user for a save path, and updates the changes to the project file
+        /// </summary>
         public void Project_SaveProjectAs()
         {
-            string newPath = "";
-            string extension = ".soundmodproj";
-
-            ioManagement.GetFilePath(ref newPath, "Save your");
-
-            if (string.IsNullOrEmpty(newPath))
-                return;
-
-            string newPath_fullPath = Path.GetFullPath(newPath);
-            string newPath_extension = Path.GetExtension(newPath);
-            string newPath_noExt = newPath_fullPath.Remove(newPath_fullPath.Length - newPath_extension.Length, newPath_extension.Length);
-            string finalPath = newPath_noExt + extension;
-
-            projectFile.Project_FilePath = finalPath;
+            projectManager.Project_SaveProjectAs();
         }
 
-        public ProjectFile Get_NewProjectFile(string filePath)
+        /// <summary>
+        /// Used by different scripting objects to return back to the main application window.
+        /// </summary>
+        public void BackToMainWindow()
         {
-            //create a new mod object
-            ProjectFile newProjectFile = new ProjectFile();
-
-            //read the data from the config file
-            string jsonText = File.ReadAllText(filePath);
-
-            //parse the data into a json array
-            JObject obj = JObject.Parse(jsonText);
-
-            //loop through each property to get the data
-            foreach (JProperty property in obj.Properties())
-            {
-                string name = property.Name; //get the name of the property from the json object
-
-                if (name.Equals(nameof(projectFile.Project_Directory)))
-                    projectFile.Project_Directory = (string)property.Value;
-
-                if (name.Equals(nameof(projectFile.Project_FilePath)))
-                    projectFile.Project_FilePath = (string)property.Value;
-
-                if (name.Equals(nameof(projectFile.Project_GameVersion)))
-                    projectFile.Project_GameVersion = (string)property.Value;
-
-                if (name.Equals(nameof(projectFile.Project_ModVersion)))
-                    projectFile.Project_ModVersion = (string)property.Value;
-
-                if (name.Equals(nameof(projectFile.Project_FileTree)))
-                {
-                    JArray fileArray = (JArray)obj[nameof(projectFile.Project_FileTree)];
-                    List<Item> parsed_FileTree = new List<Item>();
-
-                    foreach (JValue item in fileArray)
-                    {
-                        parsed_FileTree.Add((Item)item.Value);
-                    }
-
-                    newProjectFile.Project_FileTree = parsed_FileTree;
-                }
-            }
-
-            return newProjectFile;
+            mainWindow.Show();
+            mainWindow.Activate();
         }
 
-        public void UpdateProjectFileWithChanges()
+        public void OpenProjectFolderDirectory()
         {
-            string path = projectFile.Project_FilePath;
+            /*
+            //create a windows explorer processinfo to be exectued
+            ProcessStartInfo processStartInfo = new ProcessStartInfo();
+            processStartInfo.FileName = projectFile
+            processStartInfo.UseShellExecute = true;
+            processStartInfo.Verb = "open";
 
-            //open a stream writer to create the text file and write to it
-            using (StreamWriter file = File.CreateText(path))
-            {
-                //get our json seralizer
-                JsonSerializer serializer = new JsonSerializer();
-
-                //seralize the data and write it to the configruation file
-                serializer.Formatting = Formatting.Indented;
-                serializer.Serialize(file, projectFile);
-            }
-        }
-
-        public void MonitorFolder()
-        {
-            string path = projectFile.Project_FilePath;
-
-            FileSystemWatcher ProjectFolderWatcher = new FileSystemWatcher(path);
-            ProjectFolderWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
-            ProjectFolderWatcher.Changed += ProjectFolderWatcher_Changed;
-            ProjectFolderWatcher.IncludeSubdirectories = true;
-            ProjectFolderWatcher.EnableRaisingEvents = true;
-        }
-
-        private void ProjectFolderWatcher_Changed(object sender, FileSystemEventArgs e)
-        {
-            string path = projectFile.Project_FilePath;
-
-            Application.Current.Dispatcher.Invoke(new Action(() =>
-            {
-                GetFilePathsItems(path);
-            }));
-        }
-
-
-        public List<Item> GetFilePathsItems(string path)
-        {
-            var items = new List<Item>();
-
-            var dirInfo = new DirectoryInfo(path);
-
-            foreach (var directory in dirInfo.GetDirectories())
-            {
-                var item = new DirectoryItem
-                {
-                    Name = directory.Name,
-                    Path = directory.FullName,
-                    Items = GetFilePathsItems(directory.FullName)
-                };
-
-                items.Add(item);
-            }
-
-            foreach (var file in dirInfo.GetFiles())
-            {
-                var item = new FileItem
-                {
-                    Name = file.Name,
-                    Path = file.FullName
-                };
-
-                items.Add(item);
-            }
-
-            return items;
+            //start the process
+            Process.Start(processStartInfo);
+            */
         }
 
         public void New_ProjectFile()
         {
-
+            projectManager.Open_Create_NewProjectFileWindow();
         }
 
         public void Open_ProjectFile()
         {
-            string newPath = "";
-            string extension = "Sound Mod Project (*.soundmodproj)|*..soundmodproj";
-
-            ioManagement.GetFilePath(ref newPath, extension, "Select your Project Directory");
-
-            if (string.IsNullOrEmpty(newPath))
-                return;
-
-            projectFile.Project_Directory = newPath;
+            projectManager.Open_ProjectFile();
         }
 
-        public void Set_ProjectFile_Directory()
+        public string UI_GetTheme()
         {
-            string newPath = "";
-
-            ioManagement.GetFolderPath(ref newPath, "Select your Project Directory");
-
-            if (string.IsNullOrEmpty(newPath))
-                return;
-
-            projectFile.Project_Directory = newPath;
-        }
-
-        public void Set_ProjectFile_GameVersion(GameVersion gameVersion)
-        {
-            projectFile.Project_GameVersion = Enum.GetName(typeof(GameVersion), gameVersion);
-        }
-
-        public void Set_ProjectFile_ModVersion(string modVersion)
-        {
-            projectFile.Project_ModVersion = modVersion;
+            return "Dark.Blue";
         }
     }
 }

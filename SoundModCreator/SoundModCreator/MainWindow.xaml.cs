@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Timers;
 using SoundModCreator.FileTree;
+using ControlzEx.Theming;
 
 namespace SoundModCreator
 {
@@ -26,9 +27,20 @@ namespace SoundModCreator
     /// </summary>
     public partial class MainWindow
     {
+        //main objects
+        private Help help;
         private Main main;
         private AudioPlayer audioPlayer;
+        private AppSettings appSettings;
+        private IOManagement ioManagement;
+        private ProjectManager projectManager;
 
+        //xaml window
+        private ProjectSettings projectSettings;
+
+        /// <summary>
+        /// XAML Window Initlization
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -37,17 +49,120 @@ namespace SoundModCreator
             UpdateUI();
         }
 
+        /// <summary>
+        /// Creates and Initalizes all of the objects associated with the application.
+        /// </summary>
         private void InitalizeApplication()
         {
-            main = new Main(this);
+            help = new Help();
+            ioManagement = new IOManagement();
+
+            appSettings = new AppSettings(ioManagement);
+            projectSettings = new ProjectSettings(ioManagement);
+            projectManager = new ProjectManager(ioManagement, projectSettings);
+            main = new Main(this, projectSettings, ioManagement, appSettings, help, projectManager);
             audioPlayer = new AudioPlayer(this);
+
+            projectManager.Set_MainObject(main);
+            projectSettings.Set_MainObjects(main, projectManager);
         }
 
+        /// <summary>
+        /// Updates the UI for the MainWindow.xaml
+        /// </summary>
         private void UpdateUI()
         {
+            ThemeManager.Current.ChangeTheme(this, main.UI_GetTheme());
+
+            bool folderPreview = projectManager.projectFile != null && Directory.Exists(projectManager.projectFile.Project_MainDirectory);
+            ui_projectview_opendirectory_button.IsEnabled = folderPreview;
+
             UpdateUI_AudioPlayer();
         }
 
+        private void ui_projectview_treeview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            main.ProjectView_DoubleClick(ui_projectview_treeview.SelectedValue);
+
+            UpdateUI();
+        }
+
+        private void ui_menu_file_newProject_menuItem_Click(object sender, RoutedEventArgs e)
+        {
+            main.New_ProjectFile();
+
+            UpdateUI();
+        }
+
+        private void ui_menu_file_openProject_menuItem_Click(object sender, RoutedEventArgs e)
+        {
+            main.Open_ProjectFile();
+
+            UpdateUI();
+        }
+
+        private void ui_menu_file_save_menuItem_Click(object sender, RoutedEventArgs e)
+        {
+            main.Project_SaveProject();
+
+            UpdateUI();
+        }
+
+        private void ui_menu_file_saveAs_menuItem_Click(object sender, RoutedEventArgs e)
+        {
+            main.Project_SaveProjectAs();
+
+            UpdateUI();
+        }
+
+        private void ui_menu_edit_undo_menuItem_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateUI();
+        }
+
+        private void ui_menu_edit_redo_menuItem_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateUI();
+        }
+
+        private void ui_menu_build_buildMod_menuItem_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateUI();
+        }
+
+        private void ui_menu_build_configureMod_menuItem_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateUI();
+        }
+
+        private void ui_menu_options_applicationSettings_menuItemm_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateUI();
+        }
+
+        private void ui_projectview_opendirectory_button_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateUI();
+        }
+
+        private void ui_menu_help_about_menuItem_Click(object sender, RoutedEventArgs e)
+        {
+            help.GetHelp_About();
+
+            UpdateUI();
+        }
+
+        private void ui_menu_help_documentation_menuItem_Click(object sender, RoutedEventArgs e)
+        {
+            help.GetHelp_Documentation();
+
+            UpdateUI();
+        }
+
+        //--------------------------- AUDIO PLAYER FUNCTIONS ---------------------------
+        /// <summary>
+        /// Updates the UI for the Audio Player UI elements.
+        /// </summary>
         public void UpdateUI_AudioPlayer()
         {
             Visibility playButtonVisibility = main.audioPlayer.IsPlaying() ? Visibility.Hidden : Visibility.Visible;
@@ -74,17 +189,14 @@ namespace SoundModCreator
             ui_audioplayer_volume_label.Content = volumePercent_string;
             ui_audioplayer_volume_slider.Maximum = 1;
 
-            if(main.selectedItem == null)
+            if (main.selectedItem == null)
                 ui_audioplayer_audiofile_label.Content = string.Format("Sound: {0}", "No Sound Selected.");
             else
                 ui_audioplayer_audiofile_label.Content = string.Format("Sound: {0}", main.selectedItem.Name);
         }
 
-        private void ui_projectview_treeview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            main.ProjectView_DoubleClick(ui_projectview_treeview.SelectedValue);
-        }
-
+        //--------------------------- AUDIO PLAYER FUNCTIONS END ---------------------------
+        //--------------------------- AUDIO PLAYER XAML ---------------------------
         private void ui_audioplayer_play_button_Click(object sender, RoutedEventArgs e)
         {
             Item selectedItem = (Item)ui_projectview_treeview.SelectedValue;
@@ -129,60 +241,6 @@ namespace SoundModCreator
             audioPlayer.SetVolume(value);
             UpdateUI_AudioPlayer();
         }
-
-        private void ui_menu_file_newProject_menuItem_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ui_menu_file_openProject_menuItem_Click(object sender, RoutedEventArgs e)
-        {
-            main.Open_ProjectFile();
-        }
-
-        private void ui_menu_file_save_menuItem_Click(object sender, RoutedEventArgs e)
-        {
-            main.Project_SaveProject();
-        }
-
-        private void ui_menu_file_saveAs_menuItem_Click(object sender, RoutedEventArgs e)
-        {
-            main.Project_SaveProjectAs();
-        }
-
-        private void ui_menu_edit_undo_menuItem_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ui_menu_edit_redo_menuItem_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ui_menu_build_buildMod_menuItem_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ui_menu_build_configureMod_menuItem_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ui_menu_options_applicationSettings_menuItemm_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ui_menu_help_about_menuItem_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ui_menu_help_documentation_menuItem_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        //--------------------------- AUDIO PLAYER XAML END ---------------------------
     }
 }

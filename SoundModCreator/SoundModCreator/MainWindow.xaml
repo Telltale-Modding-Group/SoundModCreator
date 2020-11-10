@@ -42,6 +42,13 @@
                             <iconPacks:BootstrapIcons Kind="Folder2Open" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Name="ui_menu_file_openRecentProject_menuItem" Header="Open Recent Project" ItemsSource="{Binding }" Margin="7,0,0,0">
+                        <MenuItem.ItemContainerStyle>
+                            <Style TargetType="MenuItem">
+                                <Setter Property="Header" Value="{Binding}"/>
+                            </Style>
+                        </MenuItem.ItemContainerStyle>
+                    </MenuItem>
                     <Separator />
                     <MenuItem Name="ui_menu_file_save_menuItem" Header="Save" Margin="7,0,0,0" Click="ui_menu_file_save_menuItem_Click">
                         <MenuItem.Icon>
@@ -117,7 +124,10 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <TreeView ItemsSource="{Binding}" Grid.Column="0" Name="ui_projectview_treeview" Margin="10,41,10,10" MouseDoubleClick="ui_projectview_treeview_MouseDoubleClick"/>
-                    <Label Content="Project Hierarchy" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="375"/>
+                    <Label Name="ui_projectview_title_label" Content="Project Hierarchy" Margin="10,10,42,0" VerticalAlignment="Top"/>
+                    <Button Name="ui_projectview_opendirectory_button" HorizontalAlignment="Right" Margin="0,9,10,0" VerticalAlignment="Top" Width="27" Height="27" Padding="0" Click="ui_projectview_opendirectory_button_Click" ToolTip="Opens the Project Directory in File Explorer" >
+                        <iconPacks:BootstrapIcons Height="18" Width="18" Kind="Folder"></iconPacks:BootstrapIcons>
+                    </Button>
                 </Grid>
 
                 <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" ResizeDirection="Rows"/>
