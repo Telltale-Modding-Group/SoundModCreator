@@ -37,17 +37,31 @@
                             <iconPacks:BootstrapIcons Kind="FolderPlus" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Name="ui_menu_file_openProject_menuItem" Header="Open Project" Margin="7,0,0,0" Click="ui_menu_file_openProject_menuItem_Click">
+                    <MenuItem Name="ui_menu_file_openMenu_menuItem" Header="Open" Margin="7,0,0,0">
                         <MenuItem.Icon>
                             <iconPacks:BootstrapIcons Kind="Folder2Open" />
                         </MenuItem.Icon>
+                        <MenuItem Name="ui_menu_file_openRecentProject_menuItem" Header="Open Recent Project" Margin="7,0,0,0">
+                            <MenuItem.Icon>
+                                <iconPacks:BootstrapIcons Kind="ClockHistory" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Name="ui_menu_file_openProject_menuItem" Header="Open Project" Margin="7,0,0,0" Click="ui_menu_file_openProject_menuItem_Click">
+                            <MenuItem.Icon>
+                                <iconPacks:BootstrapIcons Kind="Folder2Open" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Name="ui_menu_file_openArchive_menuItem" Header="Open TTARCH2 Archive" Margin="7,0,0,0">
+                            <MenuItem.Icon>
+                                <iconPacks:BootstrapIcons Kind="FileDiff" />
+                            </MenuItem.Icon>
+                        </MenuItem>
                     </MenuItem>
-                    <MenuItem Name="ui_menu_file_openRecentProject_menuItem" Header="Open Recent Project" ItemsSource="{Binding }" Margin="7,0,0,0">
-                        <MenuItem.ItemContainerStyle>
-                            <Style TargetType="MenuItem">
-                                <Setter Property="Header" Value="{Binding}"/>
-                            </Style>
-                        </MenuItem.ItemContainerStyle>
+                    <Separator />
+                    <MenuItem Name="ui_menu_file_importSound_menuItem" Header="Import Sound" Margin="7,0,0,0">
+                        <MenuItem.Icon>
+                            <iconPacks:BootstrapIcons Kind="FileMusic" />
+                        </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
                     <MenuItem Name="ui_menu_file_save_menuItem" Header="Save" Margin="7,0,0,0" Click="ui_menu_file_save_menuItem_Click">
@@ -70,6 +84,11 @@
                     <MenuItem Name="ui_menu_edit_redo_menuItem" Header="Redo" Margin="7,0,0,0" Click="ui_menu_edit_redo_menuItem_Click">
                         <MenuItem.Icon>
                             <iconPacks:BoxIcons Kind="RegularRedo" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Name="ui_menu_edit_delete_menuItem" Header="Undo" Margin="7,0,0,0">
+                        <MenuItem.Icon>
+                            <iconPacks:BootstrapIcons Kind="X" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>

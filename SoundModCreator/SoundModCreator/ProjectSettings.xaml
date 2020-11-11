@@ -19,13 +19,13 @@
 
     <Grid>
         <Label Name="ui_projectsettings_projectname_label" Content="Project Name" Margin="10,10,10,0" VerticalAlignment="Top"/>
-        <TextBox Name="ui_projectsettings_projectname_textbox" Height="23" Margin="10,41,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalContentAlignment="Stretch"/>
+        <TextBox Name="ui_projectsettings_projectname_textbox" Height="23" Margin="10,41,10,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" HorizontalContentAlignment="Stretch"/>
 
         <Label Name="ui_projectsettings_author_label" Content="Author" Margin="10,72,10,0" VerticalAlignment="Top"/>
-        <TextBox Name="ui_projectsettings_author_textbox" Text="" Height="23" Margin="10,103,10,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalContentAlignment="Stretch"/>
+        <TextBox Name="ui_projectsettings_author_textbox" Text="Author" Height="23" Margin="10,103,10,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalContentAlignment="Stretch"/>
 
         <Label Name="ui_projectsettings_projectversion_label" Content="Project Version" Margin="10,134,10,0" VerticalAlignment="Top"/>
-        <TextBox Name="ui_projectsettings_projectversion_textbox" Text="" Height="23" Margin="10,165,10,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalContentAlignment="Stretch"/>
+        <TextBox Name="ui_projectsettings_projectversion_textbox" Text="1.0.0" Height="23" Margin="10,165,10,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalContentAlignment="Stretch"/>
 
         <Label Name="ui_projectsettings_gameversion_label" Content="Game Version" Margin="10,196,10,0" VerticalAlignment="Top"/>
         <ComboBox Name="ui_projectsettings_gameversion_combobox" Margin="10,227,10,0" VerticalAlignment="Top"/>

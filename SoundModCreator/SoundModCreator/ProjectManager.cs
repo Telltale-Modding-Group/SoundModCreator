@@ -128,6 +128,12 @@ namespace SoundModCreator
         /// </summary>
         public void Project_SaveProject()
         {
+            if(projectFile == null)
+            {
+                MessageBox.Show("Can't Save! No Project has been Opened/Created!", "Save", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             if (File.Exists(projectFile.Project_FilePath) == false)
             {
                 Project_SaveProjectAs();
@@ -167,10 +173,16 @@ namespace SoundModCreator
         /// </summary>
         public void Project_SaveProjectAs()
         {
+            if (projectFile == null)
+            {
+                MessageBox.Show("Can't Save! No Project has been Opened/Created!", "Save As", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             string newPath = "";
             string extension = "Sound Mod Project (*.soundmodproj)|*.soundmodproj";
 
-            ioManagement.SaveFilePath(ref newPath, extension, "Save Your Project");
+            ioManagement.SaveFilePath(ref newPath, extension, "Save Project As");
 
             if (string.IsNullOrEmpty(newPath))
                 return;
@@ -188,7 +200,7 @@ namespace SoundModCreator
             string newPath = "";
             string extension = "Sound Mod Project (*.soundmodproj)|*.soundmodproj";
 
-            ioManagement.GetFilePath(ref newPath, extension, "Select your Project Directory");
+            ioManagement.GetFilePath(ref newPath, extension, "Open your Project FIle");
 
             if (string.IsNullOrEmpty(newPath))
                 return;

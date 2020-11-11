@@ -37,6 +37,7 @@ namespace SoundModCreator
 
         //xaml window
         private ProjectSettings projectSettings;
+        private ApplicaitonSettings_Window applicaitonSettings_Window;
 
         /// <summary>
         /// XAML Window Initlization
@@ -62,6 +63,7 @@ namespace SoundModCreator
             projectManager = new ProjectManager(ioManagement, projectSettings);
             main = new Main(this, projectSettings, ioManagement, appSettings, help, projectManager);
             audioPlayer = new AudioPlayer(this);
+            applicaitonSettings_Window = new ApplicaitonSettings_Window();
 
             projectManager.Set_MainObject(main);
             projectSettings.Set_MainObjects(main, projectManager);
@@ -74,8 +76,12 @@ namespace SoundModCreator
         {
             ThemeManager.Current.ChangeTheme(this, main.UI_GetTheme());
 
-            bool folderPreview = projectManager.projectFile != null && Directory.Exists(projectManager.projectFile.Project_MainDirectory);
-            ui_projectview_opendirectory_button.IsEnabled = folderPreview;
+            bool isRecentFilesEmpty = ui_menu_file_openRecentProject_menuItem.ItemsSource != null;
+            bool doesProjectExist = projectManager.projectFile != null && Directory.Exists(projectManager.projectFile.Project_MainDirectory);
+            ui_projectview_opendirectory_button.IsEnabled = doesProjectExist;
+            ui_menu_build_buildMod_menuItem.IsEnabled = doesProjectExist;
+            ui_menu_build_configureMod_menuItem.IsEnabled = doesProjectExist;
+            ui_menu_file_openRecentProject_menuItem.IsEnabled = isRecentFilesEmpty;
 
             UpdateUI_AudioPlayer();
         }
@@ -137,6 +143,9 @@ namespace SoundModCreator
 
         private void ui_menu_options_applicationSettings_menuItemm_Click(object sender, RoutedEventArgs e)
         {
+            applicaitonSettings_Window.Show();
+            applicaitonSettings_Window.Activate();
+
             UpdateUI();
         }
 

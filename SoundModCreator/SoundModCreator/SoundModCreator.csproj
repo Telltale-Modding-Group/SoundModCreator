@@ -176,6 +176,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ApplicaitonSettings_Window.xaml.cs">
+      <DependentUpon>ApplicaitonSettings_Window.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AppSettings.cs" />
     <Compile Include="AppSettingsFile.cs" />
     <Compile Include="Help.cs" />
@@ -184,6 +187,10 @@
       <DependentUpon>ProjectSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="ttarchext_GameEnums.cs" />
+    <Page Include="ApplicaitonSettings_Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

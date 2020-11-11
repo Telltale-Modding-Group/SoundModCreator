@@ -1,0 +1,29 @@
+﻿<mah:MetroWindow x:Class="SoundModCreator.ApplicaitonSettings_Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SoundModCreator"
+        mc:Ignorable="d"
+        GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+        ResizeMode="NoResize"
+        Title="Applicaiton Settings" Height="313.953" Width="350" Closing="AppSettingsWindow_Closing">
+
+    <mah:MetroWindow.LeftWindowCommands>
+        <mah:WindowCommands HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            <iconPacks:BootstrapIcons Width="30" Height="20" Kind="GearFill" />
+        </mah:WindowCommands>
+    </mah:MetroWindow.LeftWindowCommands>
+
+    <Grid>
+        <Label Content="ttarchext Executable Location" Margin="10,10,10,0" VerticalAlignment="Top"/>
+        <Button HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="25" Padding="0">
+            <iconPacks:BootstrapIcons Width="17" Height="17" Kind="Folder2Open" />
+        </Button>
+        <TextBox Height="27" Margin="40,41,10,0" TextWrapping="Wrap" Text="ttarchext" VerticalAlignment="Top"/>
+        <Separator Height="21" Margin="10,73,10,0" VerticalAlignment="Top"/>
+        <mah:ToggleSwitch Header="UI Light Theme" HorizontalAlignment="Left" Height="100" Margin="10,99,0,0" VerticalAlignment="Top" Width="100"/>
+    </Grid>
+</mah:MetroWindow>
