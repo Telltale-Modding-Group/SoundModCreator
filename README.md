@@ -1,6 +1,6 @@
 # Sound Mod Creator for the Telltale Mod Launcher
 
-**NOTE: This project is still heavily a work in progress. Many critical features have not been implemented just yet and there will be issues/bugs that you will encounter.**
+**NOTE: This will be discontinued as the functionality of this application will be moved and implemented into the rewrite of the Telltale Script Editor.**
 
 If you wish to try it out, you'll need Visual Studio to open the project and build it (Haven't put out a build just yet). If you encounter any bugs/issues or have suggestions, feel free to leave an 'issue' on the repository.
 
